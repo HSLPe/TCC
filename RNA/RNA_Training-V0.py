@@ -59,7 +59,7 @@ def montar_modelo2(hp):
                 metrics="accuracy")
     return RNA2
 
-log_dir = PATH+r'/TrainigData/' + dt.datetime.now().strftime("%Y%m%d-%H%M%S")
+log_dir = PATH+r'/TrainRandom/' + dt.datetime.now().strftime("%Y%m%d-%H%M%S")
 tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=log_dir, histogram_freq=1)
 
 tuner=kt.RandomSearch(
@@ -88,7 +88,9 @@ tuner.search(X_treino,y_treino,epochs=Epocas,validation_data=(X_valid,y_valid),c
 
 Modelos=tuner.get_best_models()[0]
 Modelos.save(log_dir+r'/Modelo.h5')
+history = Modelos.fit(X_treino, y_treino, epochs=50, validation_split=0.2)
+eval_result = Modelos.evaluate(X_valid, y_valid)
+print("[test loss, test accuracy]:", eval_result)
 # for i in range(0,len(Modelos)):
 #     Modelos[i].save(log_dir+r'/Modelo_'+str(i)+r'.h5')
-Modelos.evaluate(ValDataset)
 print('Processo concluido em %f s '%(time.time()-start_time))
