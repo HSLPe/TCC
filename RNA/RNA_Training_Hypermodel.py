@@ -65,9 +65,7 @@ eval_result = modelo.evaluate(X_valid, y_valid)
 print("[test loss, test accuracy]:", eval_result)
 plot_model(modelo, to_file=SavePath+r'/model_plot.png', show_shapes=True, show_layer_names=True)
 
-# val_acc_per_epoch = history.history['val_accuracy']
-# best_epoch = val_acc_per_epoch.index(max(val_acc_per_epoch)) + 1
-# print('Best epoch: %d' % (best_epoch,))
+
 modelo.summary()
 modelo.save(SavePath+r'/ModeloHyper.h5')
 plt.plot(history.history['accuracy'],'x')
@@ -76,4 +74,5 @@ plt.title('model accuracy')
 plt.ylabel('accuracy')
 plt.xlabel('epoch')
 plt.legend(['train', 'test'], loc='upper left')
-plt.show()
+# plt.show()
+
